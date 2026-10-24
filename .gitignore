@@ -1,0 +1,14 @@
+node_modules
+dist/
+out/
+cache/
+coverage/
+.env
+.env.*
+!.env.example
+.stealth/
+deployments/*.json
+!deployments/.gitkeep
+broadcast/
+*.log
+.DS_Store

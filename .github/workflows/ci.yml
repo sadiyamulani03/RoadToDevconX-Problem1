@@ -1,0 +1,53 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build contracts and client
+        run: npm run build
+
+      - name: Solidity formatting
+        run: npm run fmt:check
+
+      - name: Contract tests
+        run: npm run test:contracts
+
+      - name: Unit tests
+        run: npm run test:unit
+
+      - name: End-to-end and CLI tests
+        run: npm run test:e2e
+
+      - name: Secret scan
+        run: npm run secret-scan
