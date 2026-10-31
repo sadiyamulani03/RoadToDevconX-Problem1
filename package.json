@@ -1,43 +1,22 @@
 {
-  "name": "erc5564-stealth-payments",
+  "name": "quadratic-funding",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "ERC-5564 Scheme 1 stealth payment system with separated viewing/spending keys, scanner, recovery, CLI, and local-chain demo",
+  "description": "Quadratic Funding DApp — Foundry contracts + React/TypeScript frontend on Sepolia",
   "license": "MIT",
-  "bin": {
-    "stealth": "dist/cli.js"
-  },
   "scripts": {
-    "build:contracts": "node scripts/build-contracts.mjs",
-    "build:client": "tsc -p tsconfig.build.json",
-    "build": "npm run build:contracts && npm run build:client",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint .",
-    "test:contracts": "node scripts/run-forge.mjs test -vv",
-    "fmt:check": "node scripts/run-forge.mjs fmt --check",
-    "test:unit": "npm run build:contracts && vitest run test/crypto.test.ts test/identity-keystore.test.ts test/scanner.test.ts test/architecture.test.ts test/recovery.test.ts",
-    "test:e2e": "npm run build && vitest run test/e2e.test.ts test/cli.test.ts",
-    "test": "npm run build && npm run test:contracts && vitest run",
-    "secret-scan": "node scripts/secret-scan.mjs",
-    "demo": "npm run build:contracts && tsx scripts/demo.ts",
-    "deploy:local": "npm run build:contracts && tsx scripts/deploy.ts",
-    "cli": "tsx src/cli.ts"
-  },
-  "dependencies": {
-    "@noble/curves": "^1.9.7",
-    "@noble/hashes": "^1.8.0",
-    "viem": "^2.57.11"
+    "build:contracts": "forge build",
+    "test:contracts": "forge test -vv",
+    "fmt:check": "forge fmt --check",
+    "dev": "npm --prefix frontend run dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "preview:frontend": "npm --prefix frontend run preview",
+    "typecheck:frontend": "npm --prefix frontend run typecheck",
+    "lint:frontend": "npm --prefix frontend run lint"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.5",
-    "@types/node": "^22.20.5",
-    "eslint": "^9.39.5",
-    "globals": "^16.5.0",
-    "tsx": "^4.23.15",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.72.0",
-    "vitest": "^3.2.7"
+    "foundry": "^0.0.1"
   },
   "engines": {
     "node": ">=22"
